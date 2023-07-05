@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "multialert"
+version = "0.1.0"
+description = "Flexible package to send alerts with a unified interface"
+authors = ["Groundlight Team <info@groundlight.ai>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
