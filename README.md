@@ -4,24 +4,39 @@ MultiAlert is a Python package that provides a unified interface to send various
 
 MultiAlert currently supports the following alert types:
 
-* Audio (plays a sound)
-* Voice (speaks a message through the local speaker)
-* Slack (sends a message to a Slack channel)
-* Stdout (prints a message to the console)
+* `audio` (plays a pre-recorded sound)
+* `voice` (speaks a message through the local speaker)
+* `slack` (sends a message to a Slack channel)
+* `text`  (prints a message to the console)
 
 Planned alert types include:
-* SMS (sends a text message, using Twilio)
-* Email (sends an email)
+* `sms` (sends a text message, using Twilio)
+* `email` (sends an email)
+* `webhook` (calls a webhook)
 
-## Installation
+## Quick Start
 
-MultiAlert is available on PyPI and can be installed with pip:
+You can install MultiAlert from PyPI with pip:
 
 ```bash
 pip install multialert
 ```
 
-## Usage
+And then use it in a Python script:
+
+```python
+from multialert import MultiAlert
+
+alerter = MultiAlert(config={
+    "type": "voice",
+    "opts": {
+        "message": "You have been alerted!"
+    }
+})
+alerter.alert()
+```
+
+## Configuration and Usage
 
 Initialize the MultiAlert object with a YAML configuration file:
 
@@ -34,5 +49,47 @@ alerter = MultiAlert()
 # Note the default is equivalent to:
 # MultiAlert(config=os.environ.get("MULTIALERT_CONFIG", "multialert.yaml"))
 
-alerter.alert(message="Consider yourself alerted!")
+alerter.alert(message="You have been alerted!")
+```
+
+
+### Explicit Configuration in Python
+
+You can also configure MultiAlert directly in Python:
+
+```python
+from multialert import MultiAlert
+
+alerter = MultiAlert(
+    config={
+        "default": [
+            {
+                "type": "audio",
+                "opts": {
+                    "file": "alert.wav"
+                }
+            },
+            {
+                "type": "voice",
+                "opts": {
+                    "message": "You have been alerted!"
+                }
+            },
+            {
+                "type": "slack",
+                "opts": {
+                    "message": "You have been alerted!",
+                    "channel": "#alerts",
+                    "token": "xoxb-1234567890-123456789012-1234567890-1234567890"
+                }
+            },
+            {
+                "type": "text",
+                "opts": {
+                    "message": "You have been alerted!"
+                }
+            }
+        ]
+    }
+)
 ```
