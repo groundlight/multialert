@@ -8,6 +8,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+twilio = "^8.5.0"
+slack-sdk = "^3.21.3"
 
 
 [build-system]
